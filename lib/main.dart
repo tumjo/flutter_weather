@@ -19,7 +19,7 @@ class MyWeather extends StatefulWidget {
 }
 
 class _MyWeatherState extends State<MyWeather> {
-  // ** muuttujat **
+  // ** variables **
   var latitude = '-';
   var longitude = '-';
   String cityname = '-';
@@ -28,8 +28,8 @@ class _MyWeatherState extends State<MyWeather> {
   String windspeed = '-';
   String weatherdescription = '-';
 
-  // ** metodit **
-  // async tyyppinen koordinaattien haku, koska käytetään await. await, koska odotetaan futuuria. Metodi palauttaa tuoloksen vasta kun valmis.
+  // ** methods **
+  // async tyyppinen koordinaattien haku, koska käytetään await. await, koska odotetaan futuuria. Metodi palauttaa tuloksen vasta kun valmis.
   void getMyLocation() async {
     // Käytetään pakettia geolocator
     try {
@@ -41,6 +41,7 @@ class _MyWeatherState extends State<MyWeather> {
         longitude = position.longitude.toStringAsFixed(1);
       });
       print(position); //test
+      // -- get weather
       getMyWeather(latitude, longitude);
     } catch (e) {
       // if location permission denied or location data is not available on device
@@ -55,8 +56,11 @@ class _MyWeatherState extends State<MyWeather> {
         long +
         '&units=metric&appid=053b6edc425a34d52c32d012a86eec21&lang=fi';
     http.Response response = await http.get(url);
+    // if http status successful (=200)
     if (response.statusCode == 200) {
       print(response.body); //test
+      // dart:convert library
+      // decode response.body
       var jsonDecoded = jsonDecode(response.body);
       setState(() {
         cityname = jsonDecoded['name'];
@@ -100,7 +104,7 @@ class _MyWeatherState extends State<MyWeather> {
               margin: EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: <Widget>[
-                  Text('Lämpötila: $temperature C',
+                  Text('Lämpötila: $temperature °C',
                       style: TextStyle(
                           fontSize: 16.0, color: Colors.deepOrange[500]))
                 ],
