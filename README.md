@@ -1,6 +1,6 @@
 # weatherapp
 
-A new Flutter project.
+<img src="weatherAppScreen.png" alt="WeatherApp" width="250"/>
 
 ## Getting Started
 
